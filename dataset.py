@@ -46,8 +46,9 @@ def load_img_future(filepath, nFrames, scale, other_dataset):
     tt = int(nFrames/2)
     if other_dataset:
         target = modcrop(Image.open(filepath).convert('RGB'),scale)
-        input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
-        
+        # input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        input = target; 
+
         char_len = len(filepath)
         neigbor=[]
         if nFrames%2 == 0:
@@ -69,7 +70,8 @@ def load_img_future(filepath, nFrames, scale, other_dataset):
             
     else:
         target = modcrop(Image.open(join(filepath,'im4.png')).convert('RGB'),scale)
-        input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        # input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        input = target;
         neigbor = []
         seq = [x for x in range(4-tt,5+tt) if x!=4]
         #random.shuffle(seq) #if random sequence
