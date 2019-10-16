@@ -19,7 +19,8 @@ def load_img(filepath, nFrames, scale, other_dataset):
     #random.shuffle(seq) #if random sequence
     if other_dataset:
         target = modcrop(Image.open(filepath).convert('RGB'),scale)
-        input=target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        # input=target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        input = target;
         
         char_len = len(filepath)
         neigbor=[]
@@ -37,7 +38,8 @@ def load_img(filepath, nFrames, scale, other_dataset):
                 neigbor.append(temp)
     else:
         target = modcrop(Image.open(join(filepath,'im'+str(nFrames)+'.png')).convert('RGB'), scale)
-        input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        # input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        input = target;
         neigbor = [modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC) for j in reversed(seq)]
     
     return target, input, neigbor
