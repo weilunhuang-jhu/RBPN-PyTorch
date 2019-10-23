@@ -40,7 +40,8 @@ def load_img(filepath, nFrames, scale, other_dataset):
         target = modcrop(Image.open(join(filepath,'im'+str(nFrames)+'.png')).convert('RGB'), scale)
         # input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
         input = target;
-        neigbor = [modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC) for j in reversed(seq)]
+        neigbor = [modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale) for j in reversed(seq)]
+        # neigbor = [modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC) for j in reversed(seq)]
     
     return target, input, neigbor
 
@@ -78,7 +79,8 @@ def load_img_future(filepath, nFrames, scale, other_dataset):
         seq = [x for x in range(4-tt,5+tt) if x!=4]
         #random.shuffle(seq) #if random sequence
         for j in seq:
-            neigbor.append(modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC))
+            neigbor.append(modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale))
+            # neigbor.append(modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC))
     return target, input, neigbor
 
 def get_flow(im1, im2):
