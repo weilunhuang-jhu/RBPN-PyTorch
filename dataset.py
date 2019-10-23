@@ -30,7 +30,8 @@ def load_img(filepath, nFrames, scale, other_dataset):
             file_name=filepath[0:char_len-7]+'{0:03d}'.format(index)+'.png'
             
             if os.path.exists(file_name):
-                temp = modcrop(Image.open(filepath[0:char_len-7]+'{0:03d}'.format(index)+'.png').convert('RGB'),scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+                # temp = modcrop(Image.open(filepath[0:char_len-7]+'{0:03d}'.format(index)+'.png').convert('RGB'),scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+                temp = modcrop(Image.open(filepath[0:char_len-7]+'{0:03d}'.format(index)+'.png').convert('RGB'),scale)
                 neigbor.append(temp)
             else:
                 print('neigbor frame is not exist')
@@ -64,7 +65,8 @@ def load_img_future(filepath, nFrames, scale, other_dataset):
             file_name1=filepath[0:char_len-7]+'{0:03d}'.format(index1)+'.png'
             
             if os.path.exists(file_name1):
-                temp = modcrop(Image.open(file_name1).convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+                # temp = modcrop(Image.open(file_name1).convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+                temp = modcrop(Image.open(file_name1).convert('RGB'), scale)
                 neigbor.append(temp)
             else:
                 print('neigbor frame- is not exist')
