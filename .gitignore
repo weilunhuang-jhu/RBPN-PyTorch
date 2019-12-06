@@ -1,2 +1,18 @@
 
 .DS_Store
+
+# img
+*.PNG
+*.png
+*.JPG
+*.jpg
+
+# model
+*.pth
+
+
+# build 
+*.so
+
+# python cache
+__pycache__/
