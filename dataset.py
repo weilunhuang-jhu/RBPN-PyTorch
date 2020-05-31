@@ -19,7 +19,8 @@ def load_img(filepath, nFrames, scale, other_dataset):
     #random.shuffle(seq) #if random sequence
     if other_dataset:
         target = modcrop(Image.open(filepath).convert('RGB'),scale)
-        input=target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        # input=target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        input = target;
         
         char_len = len(filepath)
         neigbor=[]
@@ -29,7 +30,8 @@ def load_img(filepath, nFrames, scale, other_dataset):
             file_name=filepath[0:char_len-7]+'{0:03d}'.format(index)+'.png'
             
             if os.path.exists(file_name):
-                temp = modcrop(Image.open(filepath[0:char_len-7]+'{0:03d}'.format(index)+'.png').convert('RGB'),scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+                # temp = modcrop(Image.open(filepath[0:char_len-7]+'{0:03d}'.format(index)+'.png').convert('RGB'),scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+                temp = modcrop(Image.open(filepath[0:char_len-7]+'{0:03d}'.format(index)+'.png').convert('RGB'),scale)
                 neigbor.append(temp)
             else:
                 print('neigbor frame is not exist')
@@ -37,8 +39,10 @@ def load_img(filepath, nFrames, scale, other_dataset):
                 neigbor.append(temp)
     else:
         target = modcrop(Image.open(join(filepath,'im'+str(nFrames)+'.png')).convert('RGB'), scale)
-        input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
-        neigbor = [modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC) for j in reversed(seq)]
+        # input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        input = target;
+        neigbor = [modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale) for j in reversed(seq)]
+        # neigbor = [modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC) for j in reversed(seq)]
     
     return target, input, neigbor
 
@@ -46,8 +50,9 @@ def load_img_future(filepath, nFrames, scale, other_dataset):
     tt = int(nFrames/2)
     if other_dataset:
         target = modcrop(Image.open(filepath).convert('RGB'),scale)
-        input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
-        
+        # input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        input = target; 
+
         char_len = len(filepath)
         neigbor=[]
         if nFrames%2 == 0:
@@ -60,7 +65,8 @@ def load_img_future(filepath, nFrames, scale, other_dataset):
             file_name1=filepath[0:char_len-7]+'{0:03d}'.format(index1)+'.png'
             
             if os.path.exists(file_name1):
-                temp = modcrop(Image.open(file_name1).convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+                # temp = modcrop(Image.open(file_name1).convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+                temp = modcrop(Image.open(file_name1).convert('RGB'), scale)
                 neigbor.append(temp)
             else:
                 print('neigbor frame- is not exist')
@@ -69,12 +75,14 @@ def load_img_future(filepath, nFrames, scale, other_dataset):
             
     else:
         target = modcrop(Image.open(join(filepath,'im4.png')).convert('RGB'),scale)
-        input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        # input = target.resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC)
+        input = target;
         neigbor = []
         seq = [x for x in range(4-tt,5+tt) if x!=4]
         #random.shuffle(seq) #if random sequence
         for j in seq:
-            neigbor.append(modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC))
+            neigbor.append(modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale))
+            # neigbor.append(modcrop(Image.open(filepath+'/im'+str(j)+'.png').convert('RGB'), scale).resize((int(target.size[0]/scale),int(target.size[1]/scale)), Image.BICUBIC))
     return target, input, neigbor
 
 def get_flow(im1, im2):
